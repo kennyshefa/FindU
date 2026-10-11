@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS findu_db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE findu_db;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    peran ENUM('pengguna','petugas') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
