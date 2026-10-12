@@ -81,7 +81,7 @@ $items = [
 
             <div class="hero-card">
                 <div class="hero-card-img">
-                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80" alt="Punya kabar barang">
+                    <img src="asset/Community illustration.jpg" alt="Punya kabar barang">
                 </div>
                 <div class="hero-card-body">
                     <h3><span class="plus-icon">+</span> Punya kabar barang?</h3>
