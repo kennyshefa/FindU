@@ -1,5 +1,4 @@
 <?php
-// Data contoh barang (dapat disesuaikan atau diambil dari database nanti)
 $items = [
     [
         'title' => 'Dompet',
@@ -41,31 +40,28 @@ $items = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FindU - Temukan Barangmu Kembali</title>
-    <!-- Font Inter & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=<?= time(); ?>">
 </head>
 <body>
 
-    <!-- Header / Navbar -->
     <header class="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">
+            <a href="index.php" class="logo">
                 <i class="fa-solid fa-location-dot"></i>
                 <span>FindU</span>
             </a>
             <nav class="nav-links">
-                <a href="#" class="active">Beranda</a>
+                <a href="index.php" class="active">Beranda</a>
                 <a href="#">Cari</a>
                 <a href="#">Upload</a>
                 <a href="#">Tentang Kami</a>
             </nav>
-            <a href="#" class="btn btn-primary">Login &rarr;</a>
+            <a href="login.php" class="btn-login-orange">Login ▾</a>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero-section">
         <div class="container hero-container">
             <div class="hero-content">
@@ -73,21 +69,19 @@ $items = [
                 <h1 class="hero-title">Temukan Barangmu <br><span class="highlight">Kembali</span></h1>
                 <p class="hero-desc">Bantu sesama dengan melaporkan barang hilang atau menemukan barang yang bukan milikmu.</p>
                 
-                <!-- Search Box -->
                 <form class="search-box" action="#" method="GET">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
                     <input type="text" id="searchInput" placeholder="Cari nama barang, lokasi, atau kategori...">
-                    <button type="submit" class="btn btn-search">
+                    <button type="submit" class="btn-search">
                         <i class="fa-solid fa-magnifying-glass"></i> Cari
                     </button>
                 </form>
                 <p class="location-tag"><i class="fa-solid fa-location-dot"></i> Cari barang hilang & ditemukan di sekitar UB</p>
             </div>
 
-            <!-- Hero Banner Card -->
             <div class="hero-card">
                 <div class="hero-card-img">
-                    <img src="https://img.freepik.com/free-vector/hand-drawn-lost-found-illustration_23-2150373409.jpg" alt="Punya kabar barang">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80" alt="Punya kabar barang">
                 </div>
                 <div class="hero-card-body">
                     <h3><span class="plus-icon">+</span> Punya kabar barang?</h3>
@@ -97,7 +91,6 @@ $items = [
         </div>
     </section>
 
-    <!-- Items Section -->
     <section class="items-section">
         <div class="container">
             <div class="section-header">
@@ -108,7 +101,6 @@ $items = [
                 <a href="#" class="link-all">Lihat Semua &rarr;</a>
             </div>
 
-            <!-- Filter Options -->
             <div class="filter-bar">
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">Semua</button>
@@ -123,9 +115,8 @@ $items = [
                 </div>
             </div>
 
-            <!-- Grid Items -->
             <div class="items-grid" id="itemsContainer">
-                <?php foreach ($items as $item): ?>
+                <?php foreach ($items as$item): ?>
                     <div class="item-card" data-category="<?= $item['status']; ?>">
                         <div class="card-image">
                             <img src="<?= $item['image']; ?>" alt="<?= $item['title']; ?>">
@@ -134,7 +125,7 @@ $items = [
                             <span class="badge <?= $item['status_class']; ?>"><?= $item['status']; ?></span>
                             <h3 class="card-title"><?= $item['title']; ?></h3>
                             <div class="card-info">
-                                <span><i class="fa-solid fa-shield-halved"></i> <?= $item['location']; ?></span>
+                                <span><i class="fa-solid fa-location-dot"></i> <?= $item['location']; ?></span>
                                 <span><i class="fa-regular fa-clock"></i> <?= $item['time']; ?></span>
                             </div>
                         </div>
@@ -144,7 +135,6 @@ $items = [
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container footer-container">
             <p>FindU &mdash; saling bantu, saling menemukan di sekitar UB.</p>
@@ -152,6 +142,4 @@ $items = [
         </div>
     </footer>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <script
