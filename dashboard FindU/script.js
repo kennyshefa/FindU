@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const itemCards = document.querySelectorAll('.item-card');
     const searchInput = document.getElementById('searchInput');
 
-    // 1. Logika Dropdown User (Akan aktif hanya jika user sudah login)
     if (userMenuBtn && userDropdown) {
         userMenuBtn.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -17,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 2. Filter Kategori Barang (Semua / Hilang / Ditemukan)
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
             filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -36,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 3. Pencarian Kata Kunci
     if (searchInput) {
         searchInput.addEventListener('keyup', function () {
             const searchTerm = searchInput.value.toLowerCase();
