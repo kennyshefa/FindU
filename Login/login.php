@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 Continue with Google
             </a>
 
-            <p class="login-link">Belum punya akun? <a href="register.php">Daftar Sekarang</a></p>
+           <p class="login-link">Belum punya akun? <a href="../registration/register.php">Daftar Sekarang</a></p>
         </form>
     </div>
 </div>
