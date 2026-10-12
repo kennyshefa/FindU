@@ -1,145 +1,103 @@
 <?php
-$items = [
-    [
-        'title' => 'Dompet',
-        'status' => 'Ditemukan',
-        'status_class' => 'badge-found',
-        'location' => 'Perpus UB',
-        'time' => '4 hari yang lalu',
-        'image' => 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&q=80'
-    ],
-    [
-        'title' => 'Kunci Motor',
-        'status' => 'Ditemukan',
-        'status_class' => 'badge-found',
-        'location' => 'Parkiran FILKOM',
-        'time' => '2 jam yang lalu',
-        'image' => 'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=500&q=80'
-    ],
-    [
-        'title' => 'Tumbler Biru',
-        'status' => 'Hilang',
-        'status_class' => 'badge-lost',
-        'location' => 'Gedung FISIP',
-        'time' => '5 jam yang lalu',
-        'image' => 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&q=80'
-    ],
-    [
-        'title' => 'Kacamata',
-        'status' => 'Ditemukan',
-        'status_class' => 'badge-found',
-        'location' => 'Kantin FEB',
-        'time' => '1 hari yang lalu',
-        'image' => 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&q=80'
-    ]
-];
+require_once "config.php";
+
+$error = "";
+$email = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email    = trim($_POST["email"] ?? "");
+    $password = $_POST["password"] ?? "";
+
+    if ($email === "" || $password === "") {
+        $error = "Semua kolom wajib diisi.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = "Format email tidak valid.";
+    } else {
+        $stmt = $pdo->prepare("SELECT id, email, password FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
+
+        if ($user && password_verify($password, $user['password'])) {
+            session_start();
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_email'] = $user['email'];
+            header("Location: dashboard.php");
+            exit;
+        } else {
+            $error = "Email atau password salah.";
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FindU - Temukan Barangmu Kembali</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=<?= time(); ?>">
+    <title>Login - FindU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="container">
 
-    <header class="navbar">
-        <div class="container nav-container">
-            <a href="index.php" class="logo">
-                <i class="fa-solid fa-location-dot"></i>
-                <span>FindU</span>
+    <!-- kiri -->
+    <div class="left">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Logo FindU">
+        </div>
+        <img src="assets/finduh.png" alt="Ilustrasi FindU">
+    </div>
+
+    <!-- kanan -->
+    <div class="right">
+        <form class="form-box" method="POST" action="">
+            <h1>Login</h1>
+            <p class="subtitle">Masuk ke akun anda untuk melanjutkan</p>
+
+            <?php if ($error): ?>
+                <div class="alert error"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Email" value="<?= htmlspecialchars($email) ?>">
+
+            <label for="password">Password</label>
+            <div class="password-wrap">
+                <input type="password" id="password" name="password" placeholder="Password">
+                <button type="button" class="eye" id="togglePw" aria-label="Tampilkan password">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
+                        <line x1="1" y1="1" x2="23" y2="23"/>
+                    </svg>
+                </button>
+            </div>
+
+            <button type="submit" class="btn-daftar">Login</button>
+
+            <div class="divider"><span>Atau</span></div>
+
+            <a href="#" class="btn-google">
+                <svg width="14" height="14" viewBox="0 0 48 48">
+                    <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/>
+                    <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.6 5.9c4.5-4.1 7-10.2 7-17.6z"/>
+                    <path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 019.5 24c0-1.6.3-3.2.8-4.7l-7.9-6.1A24 24 0 000 24c0 3.9.9 7.5 2.6 10.8l7.9-6.1z"/>
+                    <path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2.1 1.4-4.9 2.3-8.3 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/>
+                </svg>
+                Continue with Google
             </a>
-            <nav class="nav-links">
-                <a href="index.php" class="active">Beranda</a>
-                <a href="#">Cari</a>
-                <a href="#">Upload</a>
-                <a href="#">Tentang Kami</a>
-            </nav>
-            <a href="login.php" class="btn-login-orange">Login ▾</a>
-        </div>
-    </header>
 
-    <section class="hero-section">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <p class="subtitle">Selamat datang di FindU</p>
-                <h1 class="hero-title">Temukan Barangmu <br><span class="highlight">Kembali</span></h1>
-                <p class="hero-desc">Bantu sesama dengan melaporkan barang hilang atau menemukan barang yang bukan milikmu.</p>
-                
-                <form class="search-box" action="#" method="GET">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="searchInput" placeholder="Cari nama barang, lokasi, atau kategori...">
-                    <button type="submit" class="btn-search">
-                        <i class="fa-solid fa-magnifying-glass"></i> Cari
-                    </button>
-                </form>
-                <p class="location-tag"><i class="fa-solid fa-location-dot"></i> Cari barang hilang & ditemukan di sekitar UB</p>
-            </div>
+           <p class="login-link">Belum punya akun? <a href="../registration/register.php">Daftar Sekarang</a></p>
+        </form>
+    </div>
+</div>
 
-            <div class="hero-card">
-                <div class="hero-card-img">
-                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80" alt="Punya kabar barang">
-                </div>
-                <div class="hero-card-body">
-                    <h3><span class="plus-icon">+</span> Punya kabar barang?</h3>
-                    <p>Buat laporan agar barang lebih cepat kembali ke pemiliknya.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="items-section">
-        <div class="container">
-            <div class="section-header">
-                <div>
-                    <h2>Barang Terbaru</h2>
-                    <p class="section-sub">Mungkin barang yang kamu cari ada di sini.</p>
-                </div>
-                <a href="#" class="link-all">Lihat Semua &rarr;</a>
-            </div>
-
-            <div class="filter-bar">
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">Semua</button>
-                    <button class="filter-btn" data-filter="Hilang">Hilang</button>
-                    <button class="filter-btn" data-filter="Ditemukan">Ditemukan</button>
-                </div>
-                <div class="sort-dropdown">
-                    <select id="sortSelect">
-                        <option value="terbaru">Terbaru</option>
-                        <option value="lama">Terlama</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="items-grid" id="itemsContainer">
-                <?php foreach ($items as$item): ?>
-                    <div class="item-card" data-category="<?= $item['status']; ?>">
-                        <div class="card-image">
-                            <img src="<?= $item['image']; ?>" alt="<?= $item['title']; ?>">
-                        </div>
-                        <div class="card-body">
-                            <span class="badge <?= $item['status_class']; ?>"><?= $item['status']; ?></span>
-                            <h3 class="card-title"><?= $item['title']; ?></h3>
-                            <div class="card-info">
-                                <span><i class="fa-solid fa-location-dot"></i> <?= $item['location']; ?></span>
-                                <span><i class="fa-regular fa-clock"></i> <?= $item['time']; ?></span>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container footer-container">
-            <p>FindU &mdash; saling bantu, saling menemukan di sekitar UB.</p>
-            <a href="#" class="help-link">Butuh bantuan?</a>
-        </div>
-    </footer>
-
-    <script
+<script>
+    const pw = document.getElementById("password");
+    document.getElementById("togglePw").addEventListener("click", () => {
+        pw.type = pw.type === "password" ? "text" : "password";
+    });
+</script>
+</body>
+</html>
