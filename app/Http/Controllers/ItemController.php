@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    // Halaman Cari Barang
+    // Halaman Cari Barang (Sesuai SEARCH.png)
     public function search(Request $request)
     {
         $keyword = $request->query('q', 'dompet');
@@ -19,7 +19,7 @@ class ItemController extends Controller
                 'location' => 'Gedung F3.4',
                 'time' => '4 hari yang lalu',
                 'type' => 'ditemukan',
-                'image' => 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/search/item_1.png'),
             ],
             [
                 'id' => 2,
@@ -27,7 +27,7 @@ class ItemController extends Controller
                 'location' => 'Gedung F3.4',
                 'time' => '4 hari yang lalu',
                 'type' => 'ditemukan',
-                'image' => 'https://images.unsplash.com/photo-1585336261026-7788a1046182?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/search/item_2.png'),
             ],
             [
                 'id' => 3,
@@ -35,7 +35,7 @@ class ItemController extends Controller
                 'location' => 'Gedung F4.1',
                 'time' => '4 hari yang lalu',
                 'type' => 'ditemukan',
-                'image' => 'https://images.unsplash.com/photo-1618944847828-82e943c3bdb7?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/search/item_3.png'),
             ],
             [
                 'id' => 4,
@@ -43,7 +43,7 @@ class ItemController extends Controller
                 'location' => 'Gedung F3.4',
                 'time' => '4 hari yang lalu',
                 'type' => 'ditemukan',
-                'image' => 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/search/item_4.png'),
             ],
             [
                 'id' => 5,
@@ -51,7 +51,7 @@ class ItemController extends Controller
                 'location' => 'GKM Lt.3',
                 'time' => '4 hari yang lalu',
                 'type' => 'ditemukan',
-                'image' => 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/search/item_5.png'),
             ],
             [
                 'id' => 6,
@@ -59,7 +59,7 @@ class ItemController extends Controller
                 'location' => 'Gedung F3.4',
                 'time' => '4 hari yang lalu',
                 'type' => 'ditemukan',
-                'image' => 'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/search/item_6.png'),
             ],
             [
                 'id' => 7,
@@ -67,7 +67,7 @@ class ItemController extends Controller
                 'location' => 'Gedung F3.4',
                 'time' => '4 hari yang lalu',
                 'type' => 'ditemukan',
-                'image' => 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/search/item_7.png'),
             ],
             [
                 'id' => 8,
@@ -75,7 +75,7 @@ class ItemController extends Controller
                 'location' => 'Gedung F3.4',
                 'time' => '4 hari yang lalu',
                 'type' => 'ditemukan',
-                'image' => 'https://images.unsplash.com/photo-1611591475152-473523dd665e?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/search/item_8.png'),
             ],
         ]);
 
@@ -96,7 +96,7 @@ class ItemController extends Controller
             'stored_at' => 'Pos Satpam Gedung F',
             'stored_note' => 'Setiap hari, 07.00-18.00 WIB',
             'status' => 'Belum diklaim',
-            'image' => 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&auto=format&fit=crop&q=80',
+            'image' => asset('images/dashboard/item_1_dompet.png'),
         ];
 
         return view('items.show', compact('item'));

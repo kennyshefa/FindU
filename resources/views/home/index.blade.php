@@ -5,7 +5,7 @@
 @section('content')
 <div class="space-y-8">
 
-    <!-- Hero Section Sesuai DASHBOARD.png -->
+    <!-- Hero Section Sesuai DASHBOARD.png & DASHBOARD sebelum login.png -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
         <!-- Hero Text & Search Box (2 Kolom) -->
         <div class="lg:col-span-2 bg-gradient-to-br from-blue-50/80 via-white to-blue-50/40 rounded-3xl p-6 sm:p-10 border border-blue-100/60 shadow-sm flex flex-col justify-between space-y-6">
@@ -51,11 +51,11 @@
             </form>
         </div>
 
-        <!-- Banner Kanan: Punya Kabar Barang? -->
+        <!-- Banner Kanan: Punya Kabar Barang? Sesuai Figma -->
         <div class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-100 shadow-sm flex flex-col justify-between space-y-4">
             <!-- Ilustrasi Box -->
-            <div class="h-32 bg-blue-50/60 rounded-2xl flex items-center justify-center p-3 overflow-hidden">
-                <img src="{{ asset('designs/DASHBOARD.png') }}" alt="Ilustrasi" class="h-full object-contain mix-blend-multiply opacity-85">
+            <div class="h-36 bg-blue-50/60 rounded-2xl flex items-center justify-center p-2 overflow-hidden">
+                <img src="{{ asset('images/dashboard/illustration.png') }}" alt="Ilustrasi" class="h-full w-full object-contain">
             </div>
 
             <div class="space-y-1">
@@ -67,7 +67,8 @@
                 </p>
             </div>
 
-            <!-- Tombol Aksi Lapor -->
+            @if($isLoggedIn)
+            <!-- Tombol Aksi Lapor (Muncul setelah Login sesuai DASHBOARD.png) -->
             <div class="space-y-2 pt-1">
                 <a href="{{ route('items.create-lost') }}" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs py-2.5 rounded-xl transition shadow-xs text-center block">
                     Laporkan Barang Hilang
@@ -76,6 +77,7 @@
                     Laporkan Barang Ditemukan
                 </a>
             </div>
+            @endif
         </div>
     </div>
 

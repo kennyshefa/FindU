@@ -9,7 +9,16 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $filter = $request->query('status', 'semua');
-        $isLoggedIn = $request->query('auth', '1') == '1'; // toggle via query ?auth=0 untuk preview sebelum login
+        
+        // Cek parameter auth atau session login
+        // Default login jika ada auth=1 atau default, jika auth=0 maka tampilan sebelum login
+        $authParam = $request->query('auth');
+        if ($authParam !== null) {
+            $isLoggedIn = ($authParam === '1');
+            session(['is_logged_in' => $isLoggedIn]);
+        } else {
+            $isLoggedIn = session('is_logged_in', true);
+        }
 
         $items = collect([
             [
@@ -21,7 +30,7 @@ class HomeController extends Controller
                 'type_color' => 'bg-emerald-50 text-emerald-600 border border-emerald-200/80',
                 'location' => 'Perpus UB',
                 'time' => '4 hari yang lalu',
-                'image' => 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/dashboard/item_1_dompet.png'),
             ],
             [
                 'id' => 2,
@@ -32,7 +41,7 @@ class HomeController extends Controller
                 'type_color' => 'bg-emerald-50 text-emerald-600 border border-emerald-200/80',
                 'location' => 'Parkiran FILKOM',
                 'time' => '2 jam yang lalu',
-                'image' => 'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/dashboard/item_2_kunci.png'),
             ],
             [
                 'id' => 3,
@@ -43,7 +52,7 @@ class HomeController extends Controller
                 'type_color' => 'bg-amber-50 text-amber-700 border border-amber-200/80',
                 'location' => 'Gedung FISIP',
                 'time' => '5 jam yang lalu',
-                'image' => 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/dashboard/item_3_tumbler.png'),
             ],
             [
                 'id' => 4,
@@ -54,7 +63,7 @@ class HomeController extends Controller
                 'type_color' => 'bg-emerald-50 text-emerald-600 border border-emerald-200/80',
                 'location' => 'Kantin FEB',
                 'time' => '1 hari yang lalu',
-                'image' => 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&auto=format&fit=crop&q=60',
+                'image' => asset('images/dashboard/item_4_kacamata.png'),
             ],
         ]);
 

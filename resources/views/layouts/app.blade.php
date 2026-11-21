@@ -35,6 +35,16 @@
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col justify-between antialiased">
 
+    @php
+        $authParam = request()->query('auth');
+        if ($authParam !== null) {
+            $userLoggedIn = ($authParam === '1');
+            session(['is_logged_in' => $userLoggedIn]);
+        } else {
+            $userLoggedIn = session('is_logged_in', true);
+        }
+    @endphp
+
     <!-- Floating Navbar Card Sesuai Figma -->
     <header class="max-w-6xl mx-auto w-full px-4 sm:px-6 pt-4 sticky top-0 z-50">
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 px-6 sm:px-8 py-3.5 flex items-center justify-between">
@@ -64,9 +74,9 @@
                 </a>
             </nav>
 
-            <!-- User Button Sesuai Status Login -->
+            <!-- User Button Sesuai Status Login (Login jika auth=0 / belum login, Nadia jika login) -->
             <div class="flex items-center gap-3">
-                @if(request()->query('auth') === '0')
+                @if(!$userLoggedIn)
                     <a href="{{ route('login') }}" class="inline-flex items-center justify-center bg-[#EAA023] hover:bg-[#D97706] text-white text-sm font-bold px-7 py-2.5 rounded-xl transition-all shadow-xs">
                         Login
                     </a>
