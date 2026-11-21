@@ -1,13 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Laporan Berhasil Dikirim')
+@section('title', 'Laporan Ditemukan Berhasil')
 
 @section('content')
 <div class="max-w-xl mx-auto py-8">
 
+    <!-- Card Putih Sesuai LAPORAN BERHASIL.png -->
     <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-100 text-center space-y-6">
-        <!-- Lingkaran Centang Hijau -->
-        <div class="w-16 h-16 mx-auto rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center">
+        
+        <!-- Lingkaran Centang Hijau Mint -->
+        <div class="w-16 h-16 mx-auto rounded-full bg-[#D1FAE5] text-[#10B981] flex items-center justify-center shadow-2xs">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
             </svg>
@@ -15,7 +17,7 @@
 
         <!-- Teks Berhasil -->
         <div class="space-y-2">
-            <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">
                 Laporan berhasil <span class="text-blue-600">dikirim</span>
             </h1>
             <p class="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-md mx-auto">
@@ -23,26 +25,34 @@
             </p>
         </div>
 
-        <!-- Kartu Ringkasan -->
-        <div class="border border-slate-100 rounded-2xl p-4 bg-slate-50/60 flex items-center gap-4 text-left">
-            <div class="w-16 h-16 rounded-xl bg-slate-200 shrink-0 flex items-center justify-center text-xs font-semibold text-slate-400">
-                Foto
-            </div>
-            <div class="space-y-1">
-                <span class="inline-block bg-emerald-50 text-emerald-600 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded">
-                    Ditemukan
-                </span>
-                <div class="text-xs font-bold text-slate-900">Dompet Kulit Coklat</div>
-                <div class="text-[11px] text-slate-400">📍 Gedung F · 🕒 Baru saja</div>
+        <!-- Kartu Ringkasan Sesuai Figma -->
+        <div class="border border-slate-100 rounded-2xl p-4 bg-white flex items-center gap-4 text-left shadow-2xs max-w-sm mx-auto">
+            <div class="w-16 h-16 rounded-xl bg-slate-200 shrink-0"></div>
+            <div class="space-y-1.5">
+                <div>
+                    <span class="inline-block bg-[#D1FAE5] text-[#059669] text-[10px] font-semibold px-2.5 py-0.5 rounded-full">
+                        Ditemukan
+                    </span>
+                </div>
+                <div class="flex items-center gap-1.5 text-xs text-blue-500">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    </svg>
+                </div>
+                <div class="flex items-center gap-1.5 text-xs text-blue-500">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
             </div>
         </div>
 
         <!-- Tombol Aksi -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-            <a href="{{ route('claims.index') }}" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition shadow-xs text-center">
+            <a href="{{ route('claims.index') }}" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm px-7 py-3 rounded-xl transition shadow-xs text-center">
                 Lihat laporan saya
             </a>
-            <a href="{{ route('items.create-found') }}" class="w-full sm:w-auto border border-blue-300 text-blue-600 hover:bg-blue-50 font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition text-center">
+            <a href="{{ route('items.create-found') }}" class="w-full sm:w-auto border border-blue-500 text-blue-600 hover:bg-blue-50 font-semibold text-xs sm:text-sm px-6 py-3 rounded-xl transition text-center">
                 Laporkan barang lain
             </a>
         </div>
@@ -52,6 +62,7 @@
                 Kembali ke Beranda
             </a>
         </div>
+
     </div>
 
 </div>
