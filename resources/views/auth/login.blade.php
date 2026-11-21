@@ -39,14 +39,30 @@
                 <p class="text-xs sm:text-sm text-slate-800 font-medium">Masuk ke akun anda untuk melanjutkan</p>
             </div>
 
-            <!-- Form Langsung Login & Buka Akun -->
+            <!-- Kartu Info Akun Siap Pakai -->
+            <div class="bg-white/80 backdrop-blur-xs border border-blue-200/80 rounded-2xl p-3.5 text-xs text-slate-700 shadow-2xs flex items-center justify-between">
+                <div>
+                    <div class="font-bold text-slate-900 text-xs flex items-center gap-1.5">
+                        <span>🔑</span>
+                        <span>Akun Siap Pakai</span>
+                    </div>
+                    <div class="text-[11px] text-slate-500 font-mono mt-0.5">
+                        nadia@student.ub.ac.id &middot; password123
+                    </div>
+                </div>
+                <button type="button" onclick="fillDemoAccount()" class="bg-[#EAA023] hover:bg-[#D97706] text-white text-[11px] font-bold px-3 py-1.5 rounded-xl transition shadow-2xs">
+                    Isi Otomatis
+                </button>
+            </div>
+
+            <!-- Form Autentikasi Login -->
             <form action="{{ route('login.post') }}" method="POST" class="space-y-4">
                 @csrf
                 
                 <!-- Email -->
                 <div class="space-y-1.5">
                     <label class="text-xs font-semibold text-slate-800">Email</label>
-                    <input type="text" name="email" value="{{ old('email') }}" placeholder="Email"
+                    <input type="text" id="emailInput" name="email" value="{{ old('email') }}" placeholder="Email"
                            class="w-full bg-white border border-slate-200/90 rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:border-[#EAA023] shadow-2xs">
                 </div>
 
@@ -116,7 +132,6 @@
 
     </main>
 
-    <!-- Footer Space -->
     <div class="h-4"></div>
 
     <script>
@@ -127,6 +142,11 @@
             } else {
                 input.type = 'password';
             }
+        }
+
+        function fillDemoAccount() {
+            document.getElementById('emailInput').value = 'nadia@student.ub.ac.id';
+            document.getElementById('passwordInput').value = 'password123';
         }
     </script>
 </body>

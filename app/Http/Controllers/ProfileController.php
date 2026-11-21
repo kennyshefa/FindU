@@ -8,11 +8,14 @@ class ProfileController extends Controller
 {
     public function index()
     {
+        $loggedEmail = session('user_email', 'nadia@student.ub.ac.id');
+        $loggedName = session('user_name', 'Nadia Nur Awwalia R');
+
         $user = (object) [
-            'name' => 'Nadia Rahmawati',
-            'display_name' => 'Nama Pengguna',
-            'email' => 'email@student.ub.ac.id',
-            'role' => 'Mahasiswa',
+            'name' => $loggedName,
+            'display_name' => $loggedName,
+            'email' => $loggedEmail,
+            'role' => session('user_role', 'Mahasiswa'),
             'phone' => '+62 812 3456 7890',
             'nim' => '235150600111001',
             'prodi' => 'Pendidikan Teknologi Informasi (PTI)',
