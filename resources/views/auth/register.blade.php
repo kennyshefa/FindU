@@ -11,99 +11,98 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #EBF3FF;
+            background-color: #DEE8FC;
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex flex-col justify-between p-6 sm:p-10 text-slate-800">
 
-    <!-- Container Utama Sesuai Register.png -->
-    <div class="max-w-4xl w-full bg-white rounded-3xl shadow-md border border-slate-100 overflow-hidden grid grid-cols-1 md:grid-cols-2 min-h-[560px]">
+    <!-- Top: Logo FindU Sesuai Register.png -->
+    <header class="w-full max-w-6xl mx-auto">
+        <a href="{{ route('home') }}" class="inline-block">
+            <img src="{{ asset('images/logo_findu_clean.png') }}" alt="FindU" class="h-10 sm:h-12 w-auto object-contain">
+        </a>
+    </header>
+
+    <!-- Main Content: Dua Kolom Sesuai Figma Register.png -->
+    <main class="w-full max-w-6xl mx-auto my-auto py-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         
-        <!-- Kolom Kiri: Logo & Karakter Detektif -->
-        <div class="bg-blue-50/60 p-8 flex flex-col justify-between relative overflow-hidden">
-            <a href="{{ route('home') }}" class="flex items-center gap-2.5 text-blue-900 font-extrabold text-2xl tracking-tight z-10">
-                <div class="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center text-white">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
-                    </svg>
-                </div>
-                <span>FindU</span>
-            </a>
-
-            <div class="my-auto py-6 flex items-center justify-center">
-                <img src="{{ asset('designs/Register.png') }}" alt="Ilustrasi Register" class="max-h-72 object-contain mix-blend-multiply">
-            </div>
-
-            <div class="text-[11px] text-slate-400 z-10">
-                &copy; 2026 FindU &middot; Universitas Brawijaya
-            </div>
+        <!-- Kolom Kiri: Karakter Detektif Asli dari Figma -->
+        <div class="flex items-center justify-center">
+            <img src="{{ asset('images/auth_man.png') }}" alt="Ilustrasi Detektif FindU" class="max-h-[460px] w-auto object-contain drop-shadow-sm">
         </div>
 
         <!-- Kolom Kanan: Form Register -->
-        <div class="p-8 sm:p-12 flex flex-col justify-center space-y-5">
+        <div class="w-full max-w-md mx-auto space-y-5">
             <div class="text-center space-y-1">
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-[#EAA023]">Register</h1>
-                <p class="text-xs text-slate-500">Masuk ke akun anda untuk melanjutkan</p>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-[#EAA023] tracking-tight">Register</h1>
+                <p class="text-xs sm:text-sm text-slate-800 font-medium">Masuk ke akun anda untuk melanjutkan</p>
             </div>
 
+            <!-- Form Registrasi & Buka Akun Langsung -->
             <form action="{{ route('register.post') }}" method="POST" class="space-y-3.5">
                 @csrf
                 
                 <!-- Nama -->
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-slate-800">Nama</label>
-                    <input type="text" placeholder="Nama" required
-                           class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#EAA023] focus:bg-white transition">
+                <div class="space-y-1">
+                    <label class="text-xs font-semibold text-slate-800">Nama</label>
+                    <input type="text" name="name" value="Nadia Nur Awwalia R" placeholder="Nama" required
+                           class="w-full bg-white border border-slate-200/90 rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#EAA023] shadow-2xs">
                 </div>
 
                 <!-- Email -->
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-slate-800">Email</label>
-                    <input type="email" placeholder="Email" required
-                           class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#EAA023] focus:bg-white transition">
+                <div class="space-y-1">
+                    <label class="text-xs font-semibold text-slate-800">Email</label>
+                    <input type="email" name="email" value="email@student.ub.ac.id" placeholder="Email" required
+                           class="w-full bg-white border border-slate-200/90 rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#EAA023] shadow-2xs">
                 </div>
 
                 <!-- Password -->
-                <div class="space-y-1.5">
-                    <label class="text-xs font-bold text-slate-800">Password</label>
+                <div class="space-y-1">
+                    <label class="text-xs font-semibold text-slate-800">Password</label>
                     <div class="relative flex items-center">
-                        <input type="password" placeholder="Password" required
-                               class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-4 pr-10 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#EAA023] focus:bg-white transition">
-                        <button type="button" class="absolute right-3 text-slate-400 hover:text-slate-600">
-                            👁️
+                        <input type="password" id="registerPassword" name="password" value="password123" placeholder="Password" required
+                               class="w-full bg-white border border-slate-200/90 rounded-xl pl-4 pr-11 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#EAA023] shadow-2xs">
+                        <button type="button" onclick="toggleRegisterPassword()" class="absolute right-3.5 text-slate-400 hover:text-slate-600 focus:outline-none">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
                         </button>
                     </div>
                 </div>
 
                 <!-- Pilih Peran Sesuai Register.png -->
                 <div class="space-y-1.5 pt-1">
-                    <label class="text-xs font-bold text-slate-800">Pilih Peran</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        <button type="button" class="bg-[#EAA023] text-white font-bold text-xs py-2.5 rounded-xl shadow-xs transition">
+                    <label class="text-xs font-semibold text-slate-800">Pilih Peran</label>
+                    <div class="grid grid-cols-2 gap-3" id="roleSelector">
+                        <input type="hidden" name="role" id="selectedRole" value="Pengguna">
+                        <button type="button" onclick="selectRole('Pengguna')" id="btnPengguna"
+                                class="bg-[#EAA023] text-white font-semibold py-2.5 px-4 rounded-xl text-xs sm:text-sm transition shadow-xs">
                             Pengguna
                         </button>
-                        <button type="button" class="bg-white border border-slate-200 text-slate-600 font-semibold text-xs py-2.5 rounded-xl hover:bg-slate-50 transition">
+                        <button type="button" onclick="selectRole('Petugas')" id="btnPetugas"
+                                class="bg-white border border-slate-200 text-slate-700 font-semibold py-2.5 px-4 rounded-xl text-xs sm:text-sm hover:bg-slate-50 transition shadow-2xs">
                             Petugas
                         </button>
                     </div>
                 </div>
 
                 <!-- Tombol Daftar Oranye -->
-                <button type="submit" class="w-full bg-[#EAA023] hover:bg-[#D97706] text-white font-bold text-sm py-3 rounded-2xl transition shadow-xs mt-3">
+                <button type="submit" class="w-full bg-[#EAA023] hover:bg-[#D97706] text-white font-bold text-sm py-3.5 rounded-2xl transition shadow-xs mt-2">
                     Daftar
                 </button>
             </form>
 
             <!-- Divider Atau -->
             <div class="flex items-center gap-3">
-                <div class="flex-grow h-px bg-slate-200"></div>
-                <span class="text-xs text-slate-400 font-medium">Atau</span>
-                <div class="flex-grow h-px bg-slate-200"></div>
+                <div class="flex-grow h-px bg-slate-300"></div>
+                <span class="text-xs text-slate-600 font-medium">Atau</span>
+                <div class="flex-grow h-px bg-slate-300"></div>
             </div>
 
             <!-- Continue with Google -->
-            <button class="w-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs sm:text-sm py-2.5 rounded-2xl transition flex items-center justify-center gap-2 shadow-2xs">
+            <a href="{{ route('home') }}" class="w-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs sm:text-sm py-2.5 rounded-2xl transition flex items-center justify-center gap-2.5 shadow-2xs">
                 <svg class="w-4 h-4" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                     <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -111,10 +110,10 @@
                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
                 </svg>
                 <span>Continue with Google</span>
-            </button>
+            </a>
 
-            <!-- Link Masuk -->
-            <div class="text-center text-xs text-slate-500">
+            <!-- Footer: Sudah punya Akun? -->
+            <div class="text-center text-xs text-slate-700">
                 Sudah punya Akun? 
                 <a href="{{ route('login') }}" class="text-[#EAA023] font-bold hover:underline">
                     Masuk!
@@ -122,7 +121,33 @@
             </div>
         </div>
 
-    </div>
+    </main>
 
+    <div class="h-4"></div>
+
+    <script>
+        function toggleRegisterPassword() {
+            const input = document.getElementById('registerPassword');
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+
+        function selectRole(role) {
+            document.getElementById('selectedRole').value = role;
+            const btnPengguna = document.getElementById('btnPengguna');
+            const btnPetugas = document.getElementById('btnPetugas');
+
+            if (role === 'Pengguna') {
+                btnPengguna.className = 'bg-[#EAA023] text-white font-semibold py-2.5 px-4 rounded-xl text-xs sm:text-sm transition shadow-xs';
+                btnPetugas.className = 'bg-white border border-slate-200 text-slate-700 font-semibold py-2.5 px-4 rounded-xl text-xs sm:text-sm hover:bg-slate-50 transition shadow-2xs';
+            } else {
+                btnPetugas.className = 'bg-[#EAA023] text-white font-semibold py-2.5 px-4 rounded-xl text-xs sm:text-sm transition shadow-xs';
+                btnPengguna.className = 'bg-white border border-slate-200 text-slate-700 font-semibold py-2.5 px-4 rounded-xl text-xs sm:text-sm hover:bg-slate-50 transition shadow-2xs';
+            }
+        }
+    </script>
 </body>
 </html>
