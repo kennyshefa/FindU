@@ -16,40 +16,37 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
+    // Login langsung sukses & buka akun (fleksibel: kosong / diisi apapun langsung masuk)
     public function authenticate(Request $request)
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
+        $email = $request->input('email');
+        if (empty($email)) {
+            $email = 'email@student.ub.ac.id';
+        }
 
-        // Langsung autentikasi dan buka akun
         session([
             'is_logged_in' => true,
-            'user_email' => $request->email,
-            'user_name' => ($request->email === 'nadia@student.ub.ac.id' || str_contains(strtolower($request->email), 'nadia')) ? 'Nadia' : 'Nama Pengguna'
+            'user_email' => $email,
+            'user_name' => 'Nadia'
         ]);
 
-        return redirect()->route('home')->with('success', 'Berhasil masuk ke akun!');
+        return redirect()->route('home');
     }
 
+    // Register langsung sukses & buka akun
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ]);
+        $name = $request->input('name') ?: 'Nadia Nur Awwalia R';
+        $email = $request->input('email') ?: 'email@student.ub.ac.id';
 
-        // Langsung simpan dan buka akun
         session([
             'is_logged_in' => true,
-            'user_email' => $request->email,
-            'user_name' => $request->name,
+            'user_email' => $email,
+            'user_name' => $name,
             'user_role' => $request->role ?? 'Mahasiswa'
         ]);
 
-        return redirect()->route('home')->with('success', 'Pendaftaran berhasil!');
+        return redirect()->route('home');
     }
 
     public function logout()
