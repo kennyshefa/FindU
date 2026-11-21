@@ -39,7 +39,7 @@
     <header class="max-w-6xl mx-auto w-full px-4 sm:px-6 pt-4 sticky top-0 z-50">
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 px-6 sm:px-8 py-3.5 flex items-center justify-between">
             <!-- Brand Logo FindU Sesuai Figma -->
-            <a href="{{ route('claims.index') }}" class="flex items-center gap-2.5 text-slate-900 font-extrabold text-2xl tracking-tight">
+            <a href="{{ route('home') }}" class="flex items-center gap-2.5 text-slate-900 font-extrabold text-2xl tracking-tight">
                 <div class="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center text-white shadow-xs">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
@@ -50,10 +50,10 @@
 
             <!-- Navigation Links -->
             <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
-                <a href="{{ route('profile') }}" class="{{ request()->routeIs('profile') ? 'text-[#EAA023]' : 'text-slate-500 hover:text-slate-900' }} transition-colors">
+                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-[#EAA023]' : 'text-slate-500 hover:text-slate-900' }} transition-colors">
                     Beranda
                 </a>
-                <a href="#" class="text-slate-500 hover:text-slate-900 transition-colors">
+                <a href="{{ route('items.search') }}" class="{{ request()->routeIs('items.search') ? 'text-[#EAA023]' : 'text-slate-500 hover:text-slate-900' }} transition-colors">
                     Cari
                 </a>
                 <a href="{{ route('claims.index') }}" class="{{ request()->routeIs('claims.index') ? 'text-[#EAA023]' : 'text-slate-500 hover:text-slate-900' }} transition-colors">
@@ -64,11 +64,17 @@
                 </a>
             </nav>
 
-            <!-- User Button (Nadia) Sesuai Figma -->
-            <div>
-                <a href="{{ route('profile') }}" class="inline-flex items-center justify-center bg-[#EAA023] hover:bg-[#D97706] text-white text-sm font-bold px-7 py-2.5 rounded-xl transition-all shadow-xs">
-                    Nadia
-                </a>
+            <!-- User Button Sesuai Status Login -->
+            <div class="flex items-center gap-3">
+                @if(request()->query('auth') === '0')
+                    <a href="{{ route('login') }}" class="inline-flex items-center justify-center bg-[#EAA023] hover:bg-[#D97706] text-white text-sm font-bold px-7 py-2.5 rounded-xl transition-all shadow-xs">
+                        Login
+                    </a>
+                @else
+                    <a href="{{ route('profile') }}" class="inline-flex items-center justify-center bg-[#EAA023] hover:bg-[#D97706] text-white text-sm font-bold px-7 py-2.5 rounded-xl transition-all shadow-xs">
+                        Nadia
+                    </a>
+                @endif
             </div>
         </div>
     </header>
