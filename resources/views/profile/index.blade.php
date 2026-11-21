@@ -18,7 +18,7 @@
                 <div class="flex items-center gap-4 relative z-10">
                     <!-- Avatar Lingkaran Oranye "N" -->
                     <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#EAA023] text-white font-black text-2xl sm:text-3xl flex items-center justify-center shadow-xs shrink-0">
-                        N
+                        {{ strtoupper(substr($user->name, 0, 1)) }}
                     </div>
                     <div>
                         <h2 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">{{ $user->display_name }}</h2>
@@ -36,14 +36,21 @@
                     </div>
                 </div>
 
-                <!-- Tombol Edit Profil -->
-                <div class="relative z-10">
+                <!-- Tombol Aksi Profil & Logout -->
+                <div class="relative z-10 flex items-center gap-2">
                     <button class="inline-flex items-center gap-1.5 border border-[#F59E0B] bg-white/90 hover:bg-white text-[#D97706] text-xs font-semibold px-4 py-1.5 rounded-xl transition shadow-2xs">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                         </svg>
                         Edit Profil
                     </button>
+                    <!-- Tombol Logout Header -->
+                    <a href="{{ route('logout') }}" onclick="return confirm('Apakah Anda yakin ingin keluar dari akun?')" class="inline-flex items-center gap-1.5 border border-rose-300 bg-white/90 hover:bg-rose-50 text-rose-600 text-xs font-semibold px-3.5 py-1.5 rounded-xl transition shadow-2xs">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                        <span>Keluar</span>
+                    </a>
                 </div>
             </div>
 
@@ -83,11 +90,11 @@
                     </div>
                     <div class="py-3 flex flex-col sm:flex-row sm:justify-between sm:items-center">
                         <span class="text-slate-400 font-medium sm:w-1/3">Nomor Telepon</span>
-                        <span class="text-slate-900 font-bold sm:w-2/3">+62 xxx xxxx xxxx</span>
+                        <span class="text-slate-900 font-bold sm:w-2/3">{{ $user->phone }}</span>
                     </div>
                     <div class="py-3 flex flex-col sm:flex-row sm:justify-between sm:items-center">
                         <span class="text-slate-400 font-medium sm:w-1/3">NIM</span>
-                        <span class="text-slate-900 font-bold sm:w-2/3">XXXXXXXXXXXXXXX</span>
+                        <span class="text-slate-900 font-bold sm:w-2/3">{{ $user->nim }}</span>
                     </div>
                     <div class="py-3 flex flex-col sm:flex-row sm:justify-between sm:items-center">
                         <span class="text-slate-400 font-medium sm:w-1/3">Program Studi</span>
@@ -179,6 +186,22 @@
                         </div>
                     </div>
                     <span class="text-slate-300 text-sm font-bold group-hover:text-slate-500 transition">&rsaquo;</span>
+                </a>
+
+                <!-- Fitur Keluar (Logout) di Aksi Cepat -->
+                <a href="{{ route('logout') }}" onclick="return confirm('Apakah Anda yakin ingin keluar dari akun?')" class="flex items-center justify-between p-3 rounded-2xl bg-white hover:bg-rose-50 border border-slate-100/90 transition group shadow-2xs">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-xs font-bold text-slate-900 group-hover:text-rose-600 transition">Keluar Akun</div>
+                            <div class="text-[11px] text-slate-400">Logout dari sesi ini</div>
+                        </div>
+                    </div>
+                    <span class="text-slate-300 text-sm font-bold group-hover:text-rose-400 transition">&rsaquo;</span>
                 </a>
             </div>
         </div>

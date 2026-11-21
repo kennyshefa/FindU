@@ -52,7 +52,7 @@ class AuthController extends Controller
             'user_name' => $user->name,
         ]);
 
-        return redirect()->route('home')->with('success', 'Berhasil masuk sebagai ' . $user->name);
+        return redirect()->route('profile')->with('success', 'Berhasil masuk sebagai ' . $user->name);
     }
 
     // Register akun baru ke database
@@ -79,10 +79,10 @@ class AuthController extends Controller
             'user_role' => $request->role ?? 'Mahasiswa'
         ]);
 
-        return redirect()->route('home')->with('success', 'Akun berhasil dibuat dan aktif!');
+        return redirect()->route('profile')->with('success', 'Akun berhasil didaftarkan dan aktif!');
     }
 
-    // Logout
+    // Logout: bersihkan sesi dan arahkan kembali ke halaman login
     public function logout(Request $request)
     {
         Auth::logout();
@@ -90,6 +90,6 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         session(['is_logged_in' => false]);
 
-        return redirect()->route('home', ['auth' => '0']);
+        return redirect()->route('login')->with('success', 'Anda telah berhasil keluar dari akun.');
     }
 }
