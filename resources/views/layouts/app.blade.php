@@ -47,15 +47,10 @@
 
     <!-- Floating Navbar Card Sesuai Figma -->
     <header class="max-w-6xl mx-auto w-full px-4 sm:px-6 pt-4 sticky top-0 z-50">
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 px-6 sm:px-8 py-3.5 flex items-center justify-between">
-            <!-- Brand Logo FindU Sesuai Figma -->
-            <a href="{{ route('home') }}" class="flex items-center gap-2.5 text-slate-900 font-extrabold text-2xl tracking-tight">
-                <div class="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center text-white shadow-xs">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
-                    </svg>
-                </div>
-                <span class="text-blue-950 font-black text-xl tracking-tight">FindU</span>
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 px-6 sm:px-8 py-3 flex items-center justify-between">
+            <!-- Brand Logo FindU Asli dari Figma -->
+            <a href="{{ route('home') }}" class="flex items-center py-1">
+                <img src="{{ asset('images/logo_findu_clean.png') }}" alt="FindU" class="h-9 w-auto object-contain">
             </a>
 
             <!-- Navigation Links -->
@@ -74,7 +69,7 @@
                 </a>
             </nav>
 
-            <!-- User Button Sesuai Status Login (Login jika auth=0 / belum login, Nadia jika login) -->
+            <!-- User Button Sesuai Status Login (Login jika belum login, Nadia jika login) -->
             <div class="flex items-center gap-3">
                 @if(!$userLoggedIn)
                     <a href="{{ route('login') }}" class="inline-flex items-center justify-center bg-[#EAA023] hover:bg-[#D97706] text-white text-sm font-bold px-7 py-2.5 rounded-xl transition-all shadow-xs">
