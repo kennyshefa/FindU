@@ -264,6 +264,9 @@ class ItemController extends Controller
             $imagePath = asset('storage/' . $stored);
         }
 
+        $resolvedImage = $this->resolveImageByName($validated['name'], $imagePath);
+        $resolvedDate = !empty($validated['found_date']) ? $validated['found_date'] : date('d M Y');
+
         $activities = session('user_activities', []);
         $newActivity = [
             'id' => uniqid('act_'),
@@ -276,13 +279,25 @@ class ItemController extends Controller
             'status_badge_color' => 'bg-amber-50 text-amber-700 border border-amber-200/80',
             'action_button' => null,
             'action_is_badge' => false,
-            'image' => $imagePath,
+            'image' => $resolvedImage,
         ];
 
         array_unshift($activities, $newActivity);
         session(['user_activities' => $activities]);
 
-        return redirect()->route('items.success-found');
+        $latestFoundItem = [
+            'name' => $validated['name'],
+            'category' => $validated['category'] ?? null,
+            'location' => $validated['location'],
+            'date' => $resolvedDate,
+            'image' => $resolvedImage,
+        ];
+
+        session(['latest_found_item' => $latestFoundItem]);
+
+        return redirect()
+            ->route('items.success-found')
+            ->with('latest_found_item', $latestFoundItem);
     }
 
     public function createLost()
@@ -336,7 +351,24 @@ class ItemController extends Controller
 
     public function successFound()
     {
-        return view('items.success-found');
+        $item = session('latest_found_item');
+
+        if (!$item) {
+            $activities = session('user_activities', []);
+            $firstUpload = collect($activities)->firstWhere('category', 'upload');
+
+            if ($firstUpload) {
+                $parts = explode('·', $firstUpload['subtitle'] ?? '');
+                $item = [
+                    'name' => $firstUpload['title'] ?? 'Barang Ditemukan',
+                    'location' => trim(end($parts)) ?: '-',
+                    'date' => date('d M Y'),
+                    'image' => $firstUpload['image'] ?? null,
+                ];
+            }
+        }
+
+        return view('items.success-found', compact('item'));
     }
 
     public function successLost()
